@@ -3,6 +3,7 @@ import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.geom.Rectangle2D
 import javax.swing.JPanel
+import kotlin.random.Random.Default.nextDouble
 
 class SortingCanvas(private val numberOfBars: Int) : JPanel() {
 
@@ -11,7 +12,7 @@ class SortingCanvas(private val numberOfBars: Int) : JPanel() {
     init {
         val barWidth = screenWidth.toDouble() / numberOfBars.toDouble()
         (0..numberOfBars).forEach{ _ ->
-            val bar = Bar(barWidth, (100..screenHeight-50).random(), Color.BLUE)
+            val bar = Bar(barWidth, nextDouble(100.0, screenHeight-50.0), Color.BLUE)
             collectionOfBars = collectionOfBars.plus(bar)
         }
     }

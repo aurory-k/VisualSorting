@@ -5,7 +5,7 @@ import java.awt.Color
 
 internal class SorterTest {
 
-    private val randomListOfBars = generateRandomList(50)
+    private val randomListOfBars = generateRandomList(2000)
 
     @Before
     fun setUp() {
@@ -19,7 +19,7 @@ internal class SorterTest {
 
     @Test
     fun `merge sort should sort a random list correctly`() {
-        val sortedList = randomListOfBars.mergeSort {}
+        val sortedList = randomListOfBars.startMergeSort {}
         assertThat(sortedList).isEqualTo(randomListOfBars.sortedBy { it.height })
     }
 

@@ -19,8 +19,14 @@ fun main() {
 //    canvas.collectionOfBars.bubbleSort { bars ->
 //        canvas.updateBarList(bars)
 //        canvas.repaint()
-//        Thread.sleep(1)
+//        //Thread.sleep(0)
 //    }
+
+        canvas.collectionOfBars.startMergeSort { bars ->
+        Thread.sleep(10)
+        canvas.updateBarList(bars)
+        canvas.repaint()
+    }
 
 
 }
