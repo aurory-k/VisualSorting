@@ -33,20 +33,14 @@ fun merge(leftList: MutableList<Bar>, rightList: MutableList<Bar>, draw: (List<B
             if (insertIndex == -1)
                 insertIndex = masterList.indexOf(leftList[0]).orMaxSize()
 
-            mutableList.add(newIndex, leftList[leftIndex])
-            masterList.remove(leftList[leftIndex])
-            masterList.add(insertIndex.orMaxSize(), leftList[leftIndex])
-            draw(masterList)
+            insertIntoMasterList(mutableList, newIndex, leftList[leftIndex], insertIndex, draw)
             insertIndex++
             leftIndex++
         } else {
             if (insertIndex == -1)
                 insertIndex = masterList.indexOf(leftList[0]).orMaxSize()
 
-            mutableList.add(newIndex, rightList[rightIndex])
-            masterList.remove(rightList[rightIndex])
-            masterList.add(insertIndex.orMaxSize(), rightList[rightIndex])
-            draw(masterList)
+            insertIntoMasterList(mutableList, newIndex, rightList[rightIndex], insertIndex, draw)
             insertIndex++
             rightIndex++
         }
@@ -55,56 +49,35 @@ fun merge(leftList: MutableList<Bar>, rightList: MutableList<Bar>, draw: (List<B
     }
 
     while (leftIndex < leftList.size) {
-        mutableList.add(newIndex, leftList[leftIndex])
-        masterList.remove(leftList[leftIndex])
-        masterList.add(insertIndex.orMaxSize(), leftList[leftIndex])
-        draw(masterList)
+        insertIntoMasterList(mutableList, newIndex, leftList[leftIndex], insertIndex, draw)
         insertIndex++
         leftIndex++
         newIndex++
     }
 
     while (rightIndex < rightList.size) {
-        mutableList.add(newIndex, rightList[rightIndex])
-        masterList.remove(rightList[rightIndex])
-        masterList.add(insertIndex.orMaxSize(), rightList[rightIndex])
-        draw(masterList)
+        insertIntoMasterList(mutableList, newIndex, rightList[rightIndex], insertIndex, draw)
         insertIndex++
         rightIndex++
         newIndex++
     }
-    //updateMasterList(mutableList, draw)
+
+
+
     return mutableList
 }
 
-private fun updateMasterList(
+private fun insertIntoMasterList(
     mutableList: MutableList<Bar>,
+    newIndex: Int,
+    bar: Bar,
+    insertIndex: Int,
     draw: (List<Bar>) -> Unit
-) {
-    var indexToInsertAt = masterList.indexOf(mutableList[0])
-
-    mutableList.forEach {
-        val indexInMaster = masterList.indexOf(it)
-        masterList.removeAt(indexInMaster)
-    }
-
-    if (indexToInsertAt > masterList.size) {
-        indexToInsertAt = masterList.size
-    }
-    masterList.addAll(indexToInsertAt, mutableList)
+){
+    mutableList.add(newIndex, bar)
+    masterList.remove(bar)
+    masterList.add(insertIndex.orMaxSize(), bar)
     draw(masterList)
-}
-
-fun CopyOnWriteArrayList<Bar>.check(bar: Bar): Int{
-    var count = 0
-
-    this.forEach{
-        if(it == bar){
-          count++
-        }
-    }
-
-    return count
 }
 
 fun List<Bar>.splitList(): Pair<MutableList<Bar>, MutableList<Bar>> {
