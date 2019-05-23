@@ -1,5 +1,5 @@
-import javax.swing.JFrame
 import java.awt.GraphicsEnvironment
+import javax.swing.JFrame
 
 var gd = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice!!
 var screenWidth = gd.displayMode.width
@@ -11,7 +11,7 @@ fun main() {
     frame.isVisible = true
     frame.setSize(screenWidth, screenHeight)
 
-    val canvas = SortingCanvas(500)
+    val canvas = SortingCanvas(1000)
     canvas.setSize(screenWidth, screenHeight)
 
     frame.contentPane.add(canvas)
@@ -22,8 +22,14 @@ fun main() {
 //        //Thread.sleep(0)
 //    }
 
-        canvas.collectionOfBars.startMergeSort { bars ->
-        Thread.sleep(5)
+//    canvas.collectionOfBars.startMergeSort { bars ->
+//        Thread.sleep(5)
+//        canvas.updateBarList(bars)
+//        canvas.repaint()
+//    }
+
+    canvas.collectionOfBars.insertionSort { bars ->
+        Thread.sleep(50)
         canvas.updateBarList(bars)
         canvas.repaint()
     }

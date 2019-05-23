@@ -27,7 +27,8 @@ internal class SorterTest {
 
     @Test
     fun `insertion sort should sort a random list correctly`() {
-
+        val sortedList = randomListOfBars.insertionSort {}
+        assertThat(sortedList).isEqualTo(randomListOfBars.sortedBy { it.height })
     }
 
     @Test

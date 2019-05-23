@@ -1,4 +1,3 @@
-import java.awt.Color
 import java.util.concurrent.CopyOnWriteArrayList
 
 lateinit var masterList: CopyOnWriteArrayList<Bar>
