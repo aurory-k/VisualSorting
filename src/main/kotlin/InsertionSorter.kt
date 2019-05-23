@@ -1,5 +1,8 @@
+import java.util.concurrent.CopyOnWriteArrayList
+
 fun List<Bar>.insertionSort(draw: (List<Bar>) -> Unit) : List<Bar>{
-    val mutableList = this.toMutableList()
+    val mutableList = CopyOnWriteArrayList<Bar>()
+    this.toCollection(mutableList)
     val sortedSublist = mutableListOf<Bar>()
 
     for(unsortedPass in 0 until mutableList.size){

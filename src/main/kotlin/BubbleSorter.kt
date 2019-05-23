@@ -1,7 +1,9 @@
 import java.awt.Color
+import java.util.concurrent.CopyOnWriteArrayList
 
 fun List<Bar>.bubbleSort(draw: (List<Bar>) -> Unit): List<Bar> {
-    var sortedList = this.toMutableList()
+    val sortedList = CopyOnWriteArrayList<Bar>()
+    this.toCollection(sortedList)
 
     for (pass in 0 until sortedList.size - 1) {
         for (currentBar in 0 until sortedList.size - pass - 1) {
