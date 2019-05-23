@@ -1,3 +1,4 @@
+import java.awt.Color
 import java.util.concurrent.CopyOnWriteArrayList
 
 lateinit var masterList: CopyOnWriteArrayList<Bar>
@@ -5,8 +6,10 @@ lateinit var masterList: CopyOnWriteArrayList<Bar>
 fun List<Bar>.startMergeSort(draw: (List<Bar>) -> Unit): List<Bar> {
     masterList = CopyOnWriteArrayList()
     this.toCollection(masterList)
+
     val sortedList= masterList.mergeSort(draw).toList()
     draw(sortedList)
+
     return sortedList
 }
 
@@ -61,8 +64,6 @@ fun merge(leftList: MutableList<Bar>, rightList: MutableList<Bar>, draw: (List<B
         rightIndex++
         newIndex++
     }
-
-
 
     return mutableList
 }

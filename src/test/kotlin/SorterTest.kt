@@ -2,6 +2,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import java.awt.Color
+import kotlin.random.Random
+import kotlin.random.Random.Default.nextDouble
 
 internal class SorterTest {
 
@@ -24,17 +26,28 @@ internal class SorterTest {
     }
 
     @Test
+    fun `insertion sort should sort a random list correctly`() {
+
+    }
+
+    @Test
     fun `split list should return two lists`() {
         val (leftList, rightList) = randomListOfBars.splitList()
-        assertThat(leftList.size).isBetween((randomListOfBars.size/2) - 1, (randomListOfBars.size/2) + 1)
-        assertThat(rightList.size).isBetween((randomListOfBars.size/2) - 1, (randomListOfBars.size/2) + 1)
+        assertThat(leftList.size).isBetween((randomListOfBars.size / 2) - 1, (randomListOfBars.size / 2) + 1)
+        assertThat(rightList.size).isBetween((randomListOfBars.size / 2) - 1, (randomListOfBars.size / 2) + 1)
     }
 
     private fun generateRandomList(size: Int): List<Bar> {
         var randomList = listOf<Bar>()
 
         (0 until size).forEach { _ ->
-            val bar = Bar(screenWidth.toDouble() / size.toDouble(), (0..screenHeight-100).random(), Color.BLUE)
+            val bar = Bar(
+                screenWidth.toDouble() / size.toDouble(), nextDouble(
+                    100.0,
+                    screenHeight - 50.0
+                ),
+                Color.BLUE
+            )
             randomList = randomList.plus(bar)
         }
 

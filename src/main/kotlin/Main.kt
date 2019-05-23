@@ -11,7 +11,7 @@ fun main() {
     frame.isVisible = true
     frame.setSize(screenWidth, screenHeight)
 
-    val canvas = SortingCanvas(100)
+    val canvas = SortingCanvas(500)
     canvas.setSize(screenWidth, screenHeight)
 
     frame.contentPane.add(canvas)
@@ -23,7 +23,7 @@ fun main() {
 //    }
 
         canvas.collectionOfBars.startMergeSort { bars ->
-        Thread.sleep(10)
+        Thread.sleep(5)
         canvas.updateBarList(bars)
         canvas.repaint()
     }
