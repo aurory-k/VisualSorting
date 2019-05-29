@@ -1,4 +1,3 @@
-import java.awt.Color
 import java.util.concurrent.CopyOnWriteArrayList
 
 fun List<Bar>.bubbleSort(draw: (List<Bar>) -> Unit): List<Bar> {
@@ -7,10 +6,7 @@ fun List<Bar>.bubbleSort(draw: (List<Bar>) -> Unit): List<Bar> {
 
     for (pass in 0 until sortedList.size - 1) {
         for (currentBar in 0 until sortedList.size - pass - 1) {
-            //Thread.sleep(1)
-            sortedList[currentBar].color = Color.GREEN
             sortedList.compareNextAndSwap(currentBar, draw)
-            sortedList[currentBar].color = Color.BLUE
         }
     }
 

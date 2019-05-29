@@ -6,7 +6,7 @@ fun List<Bar>.startMergeSort(draw: (List<Bar>) -> Unit): List<Bar> {
     masterList = CopyOnWriteArrayList()
     this.toCollection(masterList)
 
-    val sortedList= masterList.mergeSort(draw).toList()
+    val sortedList = masterList.mergeSort(draw).toList()
     draw(sortedList)
 
     return sortedList
@@ -73,7 +73,7 @@ private fun insertIntoMasterList(
     bar: Bar,
     insertIndex: Int,
     draw: (List<Bar>) -> Unit
-){
+) {
     mutableList.add(newIndex, bar)
     masterList.remove(bar)
     masterList.add(insertIndex.orMaxSize(), bar)
@@ -88,7 +88,7 @@ fun List<Bar>.splitList(): Pair<MutableList<Bar>, MutableList<Bar>> {
 }
 
 fun Int.orMaxSize(): Int {
-    return if(this > masterList.size){
+    return if (this > masterList.size) {
         masterList.size
     } else {
         this

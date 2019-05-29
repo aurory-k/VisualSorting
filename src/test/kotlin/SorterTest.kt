@@ -2,7 +2,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import java.awt.Color
-import kotlin.random.Random
 import kotlin.random.Random.Default.nextDouble
 
 internal class SorterTest {
