@@ -1,6 +1,10 @@
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
+import sorter.bubbleSort
+import sorter.insertionSort
+import sorter.splitList
+import sorter.startMergeSort
 import java.awt.Color
 import kotlin.random.Random.Default.nextDouble
 

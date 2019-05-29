@@ -1,3 +1,6 @@
+package sorter
+
+import Bar
 import java.util.concurrent.CopyOnWriteArrayList
 
 fun List<Bar>.insertionSort(draw: (List<Bar>) -> Unit): List<Bar> {

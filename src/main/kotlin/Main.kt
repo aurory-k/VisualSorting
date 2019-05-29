@@ -1,3 +1,4 @@
+import sorter.insertionSort
 import java.awt.GraphicsEnvironment
 import javax.swing.JFrame
 
@@ -16,13 +17,13 @@ fun main() {
 
     frame.contentPane.add(canvas)
 
-//    canvas.collectionOfBars.bubbleSort { bars ->
+//    canvas.collectionOfBars.sorter.bubbleSort { bars ->
 //        canvas.updateBarList(bars)
 //        canvas.repaint()
 //        Thread.sleep(1)
 //    }
 
-//    canvas.collectionOfBars.startMergeSort { bars ->
+//    canvas.collectionOfBars.sorter.startMergeSort { bars ->
 //        Thread.sleep(3)
 //        canvas.updateBarList(bars)
 //        canvas.repaint()
