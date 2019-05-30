@@ -1,10 +1,7 @@
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
-import sorter.bubbleSort
-import sorter.insertionSort
-import sorter.splitList
-import sorter.startMergeSort
+import sorter.*
 import java.awt.Color
 import kotlin.random.Random.Default.nextDouble
 
@@ -31,6 +28,12 @@ internal class SorterTest {
     @Test
     fun `insertion sort should sort a random list correctly`() {
         val sortedList = randomListOfBars.insertionSort {}
+        assertThat(sortedList).isEqualTo(randomListOfBars.sortedBy { it.height })
+    }
+
+    @Test
+    fun `quick sort should sort a random list correctly`(){
+        val sortedList = randomListOfBars.startQuickSort {}
         assertThat(sortedList).isEqualTo(randomListOfBars.sortedBy { it.height })
     }
 

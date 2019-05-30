@@ -1,4 +1,7 @@
+import sorter.bubbleSort
 import sorter.insertionSort
+import sorter.startMergeSort
+import sorter.startQuickSort
 import java.awt.GraphicsEnvironment
 import javax.swing.JFrame
 
@@ -17,23 +20,29 @@ fun main() {
 
     frame.contentPane.add(canvas)
 
-//    canvas.collectionOfBars.sorter.bubbleSort { bars ->
-//        canvas.updateBarList(bars)
-//        canvas.repaint()
-//        Thread.sleep(1)
-//    }
-
-//    canvas.collectionOfBars.sorter.startMergeSort { bars ->
-//        Thread.sleep(3)
-//        canvas.updateBarList(bars)
-//        canvas.repaint()
-//    }
-
-    canvas.collectionOfBars.insertionSort { bars ->
-        Thread.sleep(25)
+    canvas.collectionOfBars.bubbleSort { bars ->
+        Thread.sleep(10)
         canvas.updateBarList(bars)
         canvas.repaint()
     }
+
+//    canvas.collectionOfBars.startMergeSort { bars ->
+//        Thread.sleep(10)
+//        canvas.updateBarList(bars)
+//        canvas.repaint()
+//    }
+
+//    canvas.collectionOfBars.insertionSort { bars ->
+//        Thread.sleep(10)
+//        canvas.updateBarList(bars)
+//        canvas.repaint()
+//    }
+
+//        canvas.collectionOfBars.startQuickSort { bars ->
+//        Thread.sleep(10)
+//        canvas.updateBarList(bars)
+//        canvas.repaint()
+//    }
 
 
 }
