@@ -37,7 +37,6 @@ private fun MutableList<Bar>.partitionList(startingLeftIndex: Int, startingRight
             rightIndex--
         }
         this.swap(leftIndex, rightIndex, draw)
-        draw(this)
     }
 
     return this.indexOf(pivot)

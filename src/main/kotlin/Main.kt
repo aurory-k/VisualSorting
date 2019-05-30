@@ -20,11 +20,11 @@ fun main() {
 
     frame.contentPane.add(canvas)
 
-    canvas.collectionOfBars.bubbleSort { bars ->
-        Thread.sleep(10)
-        canvas.updateBarList(bars)
-        canvas.repaint()
-    }
+//    canvas.collectionOfBars.bubbleSort { bars ->
+//        Thread.sleep(10)
+//        canvas.updateBarList(bars)
+//        canvas.repaint()
+//    }
 
 //    canvas.collectionOfBars.startMergeSort { bars ->
 //        Thread.sleep(10)
@@ -38,11 +38,11 @@ fun main() {
 //        canvas.repaint()
 //    }
 
-//        canvas.collectionOfBars.startQuickSort { bars ->
-//        Thread.sleep(10)
-//        canvas.updateBarList(bars)
-//        canvas.repaint()
-//    }
+        canvas.collectionOfBars.startQuickSort { bars ->
+        Thread.sleep(10)
+        canvas.updateBarList(bars)
+        canvas.repaint()
+    }
 
 
 }
