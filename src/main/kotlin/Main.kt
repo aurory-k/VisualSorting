@@ -6,10 +6,14 @@ import java.awt.Color
 import java.awt.GraphicsEnvironment
 import java.awt.GridLayout
 import javax.swing.JFrame
+import kotlin.random.Random
 
 var gd = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice!!
 var screenWidth = gd.displayMode.width
 var screenHeight = gd.displayMode.height
+
+const val NUMBER_OF_SORTS: Int = 4 // Does not work with anything less
+const val SLEEP_IN_MILLIS: Long = 10
 
 fun main() {
     val frame = JFrame("Visual Sorter")
@@ -17,72 +21,86 @@ fun main() {
     frame.isVisible = true
     frame.setSize(screenWidth, screenHeight)
 
-    val canvas = SortingCanvas(4, 300, Color.BLUE)
-    canvas.setSize(screenWidth / 2, screenHeight / 2)
+    var listOfCanvases = listOf<SortingCanvas>()
+    var listOfColors =
+        listOf(Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.RED, Color.ORANGE, Color.LIGHT_GRAY)
 
-    val canvas2 = SortingCanvas(4, 300, Color.GREEN)
-    canvas2.setSize(screenWidth / 2, screenHeight / 2)
+    (0 until NUMBER_OF_SORTS).forEach { pass ->
+        val copiedCollectionOfBars = generateBars(300)
 
-    val canvas3 = SortingCanvas(4, 300, Color.RED)
-    canvas3.setSize(screenWidth / 2, screenHeight / 2)
+        val color = listOfColors.random()
+        listOfColors = listOfColors.minus(color)
 
-    val canvas4 = SortingCanvas(4, 300, Color.MAGENTA)
-    canvas4.setSize(screenWidth / 2, screenHeight / 2)
-
-    frame.contentPane.add(canvas)
-    frame.contentPane.add(canvas2)
-    frame.contentPane.add(canvas3)
-    frame.contentPane.add(canvas4)
-    frame.layout = GridLayout(2, 2)
-
-//    canvas.collectionOfBars.bubbleSort { bars ->
-//        Thread.sleep(10)
-//        canvas.updateBarList(bars)
-//        canvas.repaint()
-//    }
-
-//    canvas.collectionOfBars.startMergeSort { bars ->
-//        Thread.sleep(10)
-//        canvas.updateBarList(bars)
-//        canvas.repaint()
-//    }
-
-//    canvas.collectionOfBars.insertionSort { bars ->
-//        Thread.sleep(10)
-//        canvas.updateBarList(bars)
-//        canvas.repaint()
-//    }
-
-    Thread {
-        canvas.collectionOfBars.startQuickSort { bars ->
-            Thread.sleep(10)
-            canvas.updateBarList(bars)
-            canvas.repaint()
+        val canvas = SortingCanvas(
+            copiedCollectionOfBars,
+            color
+        )
+        when (pass) {
+            0 -> canvas.sort = {
+                canvas.collectionOfBars.startQuickSort { bars ->
+                    Thread.sleep(SLEEP_IN_MILLIS)
+                    canvas.updateBarList(bars)
+                    canvas.repaint()
+                }
+            }
+            1 -> canvas.sort = {
+                canvas.collectionOfBars.startMergeSort { bars ->
+                    Thread.sleep(SLEEP_IN_MILLIS)
+                    canvas.updateBarList(bars)
+                    canvas.repaint()
+                }
+            }
+            2 -> canvas.sort = {
+                canvas.collectionOfBars.insertionSort { bars ->
+                    Thread.sleep(SLEEP_IN_MILLIS)
+                    canvas.updateBarList(bars)
+                    canvas.repaint()
+                }
+            }
+            else -> canvas.sort = {
+                canvas.collectionOfBars.bubbleSort { bars ->
+                    Thread.sleep(SLEEP_IN_MILLIS)
+                    canvas.updateBarList(bars)
+                    canvas.repaint()
+                }
+            }
         }
-    }.start()
-    Thread {
-        canvas2.collectionOfBars.insertionSort { bars ->
-            Thread.sleep(10)
-            canvas2.updateBarList(bars)
-            canvas2.repaint()
-        }
-    }.start()
 
-    Thread {
-        canvas3.collectionOfBars.startMergeSort { bars ->
-            Thread.sleep(10)
-            canvas3.updateBarList(bars)
-            canvas3.repaint()
-        }
-    }.start()
+        canvas.setSize(screenWidth / (NUMBER_OF_SORTS / 2).orOne(), screenHeight / (NUMBER_OF_SORTS / 2).orOne())
 
-    Thread {
-        canvas4.collectionOfBars.bubbleSort { bars ->
-            Thread.sleep(10)
-            canvas4.updateBarList(bars)
-            canvas4.repaint()
-        }
-    }.start()
+        listOfCanvases = listOfCanvases.plus(canvas)
+        frame.contentPane.add(canvas)
+    }
 
+    frame.layout = GridLayout((NUMBER_OF_SORTS / 2).orOne(), (NUMBER_OF_SORTS / 2).orOne())
 
+    listOfCanvases.forEach {
+        Thread {
+            it.sort(it.collectionOfBars)
+        }.start()
+    }
 }
+
+private fun generateBars(numberOfBars: Int): List<Bar> {
+    val collectionOfBars = mutableListOf<Bar>()
+
+    val canvasWidth = screenWidth.toDouble() / Math.ceil(NUMBER_OF_SORTS / 2.0)
+    val canvasHeight = screenHeight.toDouble() / Math.ceil(NUMBER_OF_SORTS / 2.0)
+
+    val barWidth = canvasWidth / numberOfBars.toDouble()
+    (0..numberOfBars).forEach { _ ->
+        val bar = Bar(barWidth, Random.nextDouble(100.0, (canvasHeight - 50.0)), Color.BLUE)
+        collectionOfBars.add(bar)
+    }
+
+    return collectionOfBars
+}
+
+fun Int.orOne(): Int{
+    return if (this < 1){
+        1
+    } else {
+        this
+    }
+}
+
