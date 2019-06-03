@@ -17,16 +17,16 @@ fun main() {
     frame.isVisible = true
     frame.setSize(screenWidth, screenHeight)
 
-    val canvas = SortingCanvas(4, 100, Color.BLUE)
+    val canvas = SortingCanvas(4, 300, Color.BLUE)
     canvas.setSize(screenWidth / 2, screenHeight / 2)
 
-    val canvas2 = SortingCanvas(4, 100, Color.GREEN)
+    val canvas2 = SortingCanvas(4, 300, Color.GREEN)
     canvas2.setSize(screenWidth / 2, screenHeight / 2)
 
-    val canvas3 = SortingCanvas(4, 100, Color.RED)
+    val canvas3 = SortingCanvas(4, 300, Color.RED)
     canvas3.setSize(screenWidth / 2, screenHeight / 2)
 
-    val canvas4 = SortingCanvas(4, 100, Color.MAGENTA)
+    val canvas4 = SortingCanvas(4, 300, Color.MAGENTA)
     canvas4.setSize(screenWidth / 2, screenHeight / 2)
 
     frame.contentPane.add(canvas)

@@ -7,7 +7,7 @@ import kotlin.random.Random.Default.nextDouble
 
 class SortingCanvas(private val numberOfSorts: Int = 1, private val numberOfBars: Int = 500, private val color: Color = Color.BLUE) : JPanel() {
 
-    var collectionOfBars = listOf<Bar>()
+    var collectionOfBars = mutableListOf<Bar>()
 
     private val canvasWidth = screenWidth.toDouble() / 2
     private val canvasHeight = screenHeight.toDouble() / 2
@@ -16,12 +16,12 @@ class SortingCanvas(private val numberOfSorts: Int = 1, private val numberOfBars
         val barWidth = canvasWidth / numberOfBars.toDouble()
         (0..numberOfBars).forEach { _ ->
             val bar = Bar(barWidth, nextDouble(100.0, (canvasHeight - 50.0)), color)
-            collectionOfBars = collectionOfBars.plus(bar)
+            collectionOfBars.add(bar)
         }
     }
 
     fun updateBarList(newListOfBars: List<Bar>) {
-        collectionOfBars = newListOfBars
+        collectionOfBars = newListOfBars.toMutableList()
     }
 
     override fun paintComponent(g: Graphics) {
