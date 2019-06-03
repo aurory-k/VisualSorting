@@ -12,7 +12,7 @@ var gd = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice!!
 var screenWidth = gd.displayMode.width
 var screenHeight = gd.displayMode.height
 
-const val NUMBER_OF_SORTS: Int = 4 // Does not work with anything less
+const val NUMBER_OF_SORTS: Int = 1 // Does not work with anything less
 const val SLEEP_IN_MILLIS: Long = 10
 
 fun main() {

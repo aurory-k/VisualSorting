@@ -1,7 +1,9 @@
 package sorter
 
 import Bar
+import mChannels
 import java.util.concurrent.CopyOnWriteArrayList
+import kotlin.math.roundToInt
 
 lateinit var masterList: CopyOnWriteArrayList<Bar>
 
@@ -80,7 +82,10 @@ private fun insertIntoMasterList(
     mutableList.add(newIndex, bar)
     masterList.remove(bar)
     masterList.add(insertIndex.orMaxSize(), bar)
+    mChannels[0].noteOn(bar.height.roundToInt() % 127, 100)
     draw(masterList)
+    mChannels[0].noteOff(bar.height.roundToInt() % 127)
+
 }
 
 fun List<Bar>.splitList(): Pair<MutableList<Bar>, MutableList<Bar>> {

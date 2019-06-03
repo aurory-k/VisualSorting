@@ -1,20 +1,29 @@
 package sorter
 
 import Bar
+import SLEEP_IN_MILLIS
+import mChannels
 import java.util.concurrent.CopyOnWriteArrayList
+import kotlin.math.roundToInt
 
-fun List<Bar>.startQuickSort(draw: (List<Bar>) -> Unit): List<Bar>{
+fun List<Bar>.startQuickSort(draw: (List<Bar>) -> Unit): List<Bar> {
     val mutableList = CopyOnWriteArrayList<Bar>()
     this.toCollection(mutableList)
 
-    val sortedList = mutableList.quickSort(0, mutableList.size-1, draw).toList()
+    val sortedList = mutableList.quickSort(0, mutableList.size - 1, draw).toList()
     draw(sortedList)
+
+    sortedList.forEach {
+        mChannels[0].noteOn(it.height.roundToInt() % 127, 100)
+        Thread.sleep(SLEEP_IN_MILLIS * 2)
+        mChannels[0].noteOff(it.height.roundToInt() % 127)
+    }
 
     return sortedList
 }
 
-private fun MutableList<Bar>.quickSort(leftIndex: Int, rightIndex: Int, draw: (List<Bar>) -> Unit): MutableList<Bar>{
-    if(leftIndex > rightIndex){
+private fun MutableList<Bar>.quickSort(leftIndex: Int, rightIndex: Int, draw: (List<Bar>) -> Unit): MutableList<Bar> {
+    if (leftIndex > rightIndex) {
         return this
     }
 
@@ -25,15 +34,20 @@ private fun MutableList<Bar>.quickSort(leftIndex: Int, rightIndex: Int, draw: (L
     return this
 }
 
-private fun MutableList<Bar>.partitionList(startingLeftIndex: Int, startingRightIndex: Int, pivot: Bar, draw: (List<Bar>) -> Unit): Int{
+private fun MutableList<Bar>.partitionList(
+    startingLeftIndex: Int,
+    startingRightIndex: Int,
+    pivot: Bar,
+    draw: (List<Bar>) -> Unit
+): Int {
     var leftIndex = startingLeftIndex
     var rightIndex = startingRightIndex
 
-    while (leftIndex < rightIndex){
-        while(this[leftIndex].height < pivot.height){
+    while (leftIndex < rightIndex) {
+        while (this[leftIndex].height < pivot.height) {
             leftIndex++
         }
-        while(rightIndex > 0 && this[rightIndex].height > pivot.height){
+        while (rightIndex > 0 && this[rightIndex].height > pivot.height) {
             rightIndex--
         }
         this.swap(leftIndex, rightIndex, draw)
@@ -42,10 +56,13 @@ private fun MutableList<Bar>.partitionList(startingLeftIndex: Int, startingRight
     return this.indexOf(pivot)
 }
 
-private fun MutableList<Bar>.swap(leftIndex: Int, rightIndex: Int, draw: (List<Bar>) -> Unit){
+private fun MutableList<Bar>.swap(leftIndex: Int, rightIndex: Int, draw: (List<Bar>) -> Unit) {
     val temp = this[leftIndex]
 
     this[leftIndex] = this[rightIndex]
     this[rightIndex] = temp
+    mChannels[0].noteOn(this[leftIndex].height.roundToInt() % 127, 100)
     draw(this)
+    mChannels[0].noteOff(this[leftIndex].height.roundToInt() % 127)
+
 }

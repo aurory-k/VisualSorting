@@ -2,14 +2,25 @@ import java.awt.Color
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.geom.Rectangle2D
+import javax.sound.midi.MidiSystem
 import javax.swing.JPanel
-import kotlin.random.Random.Default.nextDouble
+import kotlin.math.roundToInt
+
+
+val midiSynth = MidiSystem.getSynthesizer()
+
+//get and load default instrument and channel lists
+val instr = midiSynth.defaultSoundbank.instruments
+val mChannels = midiSynth.channels
+
+val instrument = midiSynth.loadInstrument(instr[0])//load an instrument
 
 class SortingCanvas(var collectionOfBars: List<Bar>, private val color: Color) : JPanel() {
 
     lateinit var sort: (List<Bar>) -> List<Bar>
 
     init {
+        midiSynth.open()
         collectionOfBars.changeColor(color)
     }
 
@@ -22,7 +33,12 @@ class SortingCanvas(var collectionOfBars: List<Bar>, private val color: Color) :
         val graphics2d = g as Graphics2D
 
         collectionOfBars.forEachIndexed { index, bar ->
-            val rect = Rectangle2D.Double(index * bar.width, (screenHeight / (NUMBER_OF_SORTS / 2).orOne()) - bar.height, bar.width, bar.height)
+            val rect = Rectangle2D.Double(
+                index * bar.width,
+                (screenHeight / (NUMBER_OF_SORTS / 2).orOne()) - bar.height,
+                bar.width,
+                bar.height
+            )
             graphics2d.color = bar.color
             graphics2d.fill(rect)
             graphics2d.color = Color.BLACK

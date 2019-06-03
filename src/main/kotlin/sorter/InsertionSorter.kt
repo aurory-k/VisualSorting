@@ -1,7 +1,9 @@
 package sorter
 
 import Bar
+import mChannels
 import java.util.concurrent.CopyOnWriteArrayList
+import kotlin.math.roundToInt
 
 fun List<Bar>.insertionSort(draw: (List<Bar>) -> Unit): List<Bar> {
     val mutableList = CopyOnWriteArrayList<Bar>()
@@ -16,7 +18,9 @@ fun List<Bar>.insertionSort(draw: (List<Bar>) -> Unit): List<Bar> {
         mutableList.remove(copiedBar)
         mutableList.add(indexToInsertAt, copiedBar)
         sortedSublist.add(indexToInsertAt, copiedBar)
+        mChannels[0].noteOn(copiedBar.height.roundToInt()%127, 100)
         draw(mutableList)
+        mChannels[0].noteOff(copiedBar.height.roundToInt()%127)
     }
 
 

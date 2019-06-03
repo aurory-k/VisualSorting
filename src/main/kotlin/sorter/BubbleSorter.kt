@@ -1,7 +1,9 @@
 package sorter
 
 import Bar
+import mChannels
 import java.util.concurrent.CopyOnWriteArrayList
+import kotlin.math.roundToInt
 
 fun List<Bar>.bubbleSort(draw: (List<Bar>) -> Unit): List<Bar> {
     val sortedList = CopyOnWriteArrayList<Bar>()
@@ -27,6 +29,8 @@ private fun MutableList<Bar>.compareNextAndSwap(
         this[currentBar] = this[currentBar + 1]
         this[currentBar + 1] = temp
 
+        mChannels[0].noteOn(this[currentBar].height.roundToInt()%127, 100)
         draw(this)
+        mChannels[0].noteOff(this[currentBar].height.roundToInt()%127)
     }
 }
