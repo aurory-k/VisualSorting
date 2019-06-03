@@ -24,9 +24,13 @@ fun main() {
     var listOfCanvases = listOf<SortingCanvas>()
     var listOfColors =
         listOf(Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.RED, Color.ORANGE, Color.LIGHT_GRAY)
+    val masterCollectionOfBars = generateBars(300)
 
     (0 until NUMBER_OF_SORTS).forEach { pass ->
-        val copiedCollectionOfBars = generateBars(300)
+        val copiedCollectionOfBars = mutableListOf<Bar>()
+        masterCollectionOfBars.mapTo(copiedCollectionOfBars) {
+            it.copy()
+        }
 
         val color = listOfColors.random()
         listOfColors = listOfColors.minus(color)
@@ -84,8 +88,8 @@ fun main() {
 private fun generateBars(numberOfBars: Int): List<Bar> {
     val collectionOfBars = mutableListOf<Bar>()
 
-    val canvasWidth = screenWidth.toDouble() / Math.ceil(NUMBER_OF_SORTS / 2.0)
-    val canvasHeight = screenHeight.toDouble() / Math.ceil(NUMBER_OF_SORTS / 2.0)
+    val canvasWidth = screenWidth.toDouble() / (NUMBER_OF_SORTS / 2).orOne()
+    val canvasHeight = screenHeight.toDouble() / (NUMBER_OF_SORTS / 2).orOne()
 
     val barWidth = canvasWidth / numberOfBars.toDouble()
     (0..numberOfBars).forEach { _ ->
