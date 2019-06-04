@@ -2,6 +2,7 @@ package sorter
 
 import Bar
 import mChannels
+import playSound
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.math.roundToInt
 
@@ -82,10 +83,8 @@ private fun insertIntoMasterList(
     mutableList.add(newIndex, bar)
     masterList.remove(bar)
     masterList.add(insertIndex.orMaxSize(), bar)
-    mChannels[0].noteOn(bar.height.roundToInt() % 127, 100)
     draw(masterList)
-    mChannels[0].noteOff(bar.height.roundToInt() % 127)
-
+    playSound(bar.height.roundToInt())
 }
 
 fun List<Bar>.splitList(): Pair<MutableList<Bar>, MutableList<Bar>> {

@@ -3,6 +3,7 @@ package sorter
 import Bar
 import SLEEP_IN_MILLIS
 import mChannels
+import playSound
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.math.roundToInt
 
@@ -12,12 +13,6 @@ fun List<Bar>.startQuickSort(draw: (List<Bar>) -> Unit): List<Bar> {
 
     val sortedList = mutableList.quickSort(0, mutableList.size - 1, draw).toList()
     draw(sortedList)
-
-    sortedList.forEach {
-        mChannels[0].noteOn(it.height.roundToInt() % 127, 100)
-        Thread.sleep(SLEEP_IN_MILLIS * 2)
-        mChannels[0].noteOff(it.height.roundToInt() % 127)
-    }
 
     return sortedList
 }
@@ -61,8 +56,6 @@ private fun MutableList<Bar>.swap(leftIndex: Int, rightIndex: Int, draw: (List<B
 
     this[leftIndex] = this[rightIndex]
     this[rightIndex] = temp
-    mChannels[0].noteOn(this[leftIndex].height.roundToInt() % 127, 100)
     draw(this)
-    mChannels[0].noteOff(this[leftIndex].height.roundToInt() % 127)
-
+    playSound(this[leftIndex].height.roundToInt())
 }

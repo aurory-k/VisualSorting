@@ -13,7 +13,8 @@ var screenWidth = gd.displayMode.width
 var screenHeight = gd.displayMode.height
 
 const val NUMBER_OF_SORTS: Int = 1 // Does not work with anything less
-const val SLEEP_IN_MILLIS: Long = 10
+const val SLEEP_IN_MILLIS: Long = 5
+const val SOUND_ON = true
 
 fun main() {
     val frame = JFrame("Visual Sorter")
@@ -24,7 +25,7 @@ fun main() {
     var listOfCanvases = listOf<SortingCanvas>()
     var listOfColors =
         listOf(Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.RED, Color.ORANGE, Color.LIGHT_GRAY)
-    val masterCollectionOfBars = generateBars(300)
+    val masterCollectionOfBars = generateBars(1000)
 
     (0 until NUMBER_OF_SORTS).forEach { pass ->
         val copiedCollectionOfBars = mutableListOf<Bar>()
@@ -41,7 +42,7 @@ fun main() {
         )
         when (pass) {
             0 -> canvas.sort = {
-                canvas.collectionOfBars.startQuickSort { bars ->
+                canvas.collectionOfBars.startMergeSort { bars ->
                     Thread.sleep(SLEEP_IN_MILLIS)
                     canvas.updateBarList(bars)
                     canvas.repaint()

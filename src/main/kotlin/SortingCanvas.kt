@@ -4,7 +4,6 @@ import java.awt.Graphics2D
 import java.awt.geom.Rectangle2D
 import javax.sound.midi.MidiSystem
 import javax.swing.JPanel
-import kotlin.math.roundToInt
 
 
 val midiSynth = MidiSystem.getSynthesizer()
@@ -46,6 +45,17 @@ class SortingCanvas(var collectionOfBars: List<Bar>, private val color: Color) :
         }
     }
 }
+
+fun playSound(height: Int) {
+    if (SOUND_ON) {
+        Thread {
+            mChannels[0].noteOn((height / 80) + 40, 127)
+            Thread.sleep(SLEEP_IN_MILLIS * 2)
+            mChannels[0].noteOff((height / 80) + 40)
+        }.start()
+    }
+}
+
 
 fun List<Bar>.changeColor(color: Color) {
     this.forEach {
