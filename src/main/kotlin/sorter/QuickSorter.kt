@@ -1,8 +1,6 @@
 package sorter
 
 import Bar
-import SLEEP_IN_MILLIS
-import mChannels
 import playSound
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.math.roundToInt

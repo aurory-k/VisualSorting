@@ -32,7 +32,7 @@ internal class SorterTest {
     }
 
     @Test
-    fun `quick sort should sort a random list correctly`(){
+    fun `quick sort should sort a random list correctly`() {
         val sortedList = randomListOfBars.startQuickSort {}
         assertThat(sortedList).isEqualTo(randomListOfBars.sortedBy { it.height })
     }

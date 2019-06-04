@@ -5,21 +5,11 @@ import java.awt.geom.Rectangle2D
 import javax.sound.midi.MidiSystem
 import javax.swing.JPanel
 
-
-val midiSynth = MidiSystem.getSynthesizer()
-
-//get and load default instrument and channel lists
-val instr = midiSynth.defaultSoundbank.instruments
-val mChannels = midiSynth.channels
-
-val instrument = midiSynth.loadInstrument(instr[0])//load an instrument
-
 class SortingCanvas(var collectionOfBars: List<Bar>, private val color: Color) : JPanel() {
 
     lateinit var sort: (List<Bar>) -> List<Bar>
 
     init {
-        midiSynth.open()
         collectionOfBars.changeColor(color)
     }
 
